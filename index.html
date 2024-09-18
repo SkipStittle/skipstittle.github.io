@@ -1,0 +1,320 @@
+<html><head><base href="https://www.sudan-education.org/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الاختبار التجريبي للرياضيات: الدالة والنهايات - بوابة التعليم السودانية</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+  :root {
+    --primary-color: #007749;
+    --secondary-color: #d21034;
+    --accent-color: #ffd700;
+    --text-color: #333;
+    --background-color: #f5f5f5;
+  }
+  
+  body {
+    font-family: 'Tajawal', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    direction: rtl;
+  }
+  
+  header {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .question {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  
+  .options {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .option {
+    margin: 0.5rem 0;
+  }
+  
+  button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: var(--secondary-color);
+  }
+  
+  .feedback {
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+  
+  .correct {
+    color: green;
+  }
+  
+  .incorrect {
+    color: red;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+  }
+  
+  .hidden {
+    display: none;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .progress {
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>الاختبار التجريبي للرياضيات: الدالة والنهايات</h1>
+    <p>امتحان تجريبي للشهادة الثانوية السودانية</p>
+  </header>
+  
+  <main id="quiz-container">
+    <!-- Questions will be dynamically inserted here -->
+  </main>
+
+  <script>
+    const quizData = [
+      {
+        question: "ما هو تعريف الدالة في الرياضيات؟",
+        options: [
+          "علاقة تربط بين متغيرين بحيث لكل قيمة في المجال يوجد قيمة واحدة فقط في المدى",
+          "مجموعة من الأعداد المرتبة",
+          "عملية جمع الأرقام",
+          "رسم بياني يمثل معادلة"
+        ],
+        correct: 0
+      },
+      {
+        question: "ما هو مجال الدالة f(x) = √x ؟",
+        options: [
+          "جميع الأعداد الحقيقية",
+          "الأعداد الموجبة فقط",
+          "الأعداد الموجبة والصفر",
+          "الأعداد السالبة فقط"
+        ],
+        correct: 2
+      },
+      {
+        question: "ما هي نهاية الدالة f(x) = 1/x عندما x تقترب من الصفر من اليمين؟",
+        options: [
+          "صفر",
+          "واحد",
+          "ما لا نهاية موجب",
+          "ما لا نهاية سالب"
+        ],
+        correct: 2
+      },
+      {
+        question: "ما هو تعريف النهاية؟",
+        options: [
+          "القيمة التي تقترب منها الدالة عندما يقترب المتغير المستقل من قيمة معينة",
+          "أكبر قيمة يمكن أن تصل إليها الدالة",
+          "نقطة تقاطع الدالة مع المحور السيني",
+          "مشتقة الدالة عند نقطة معينة"
+        ],
+        correct: 0
+      },
+      {
+        question: "ما هي نهاية الدالة f(x) = x^2 عندما x تؤول إلى ما لا نهاية؟",
+        options: [
+          "صفر",
+          "واحد",
+          "ما لا نهاية",
+          "غير معرفة"
+        ],
+        correct: 2
+      },
+      {
+        question: "ما هي الدالة المستمرة؟",
+        options: [
+          "دالة ليس لها نقاط انقطاع في مجالها",
+          "دالة لها نقطة واحدة فقط من الانقطاع",
+          "دالة تمر بنقطة الأصل",
+          "دالة خطية"
+        ],
+        correct: 0
+      },
+      {
+        question: "ما هي قيمة النهاية: lim(x→0) sin(x)/x ؟",
+        options: [
+          "صفر",
+          "واحد",
+          "ما لا نهاية",
+          "غير معرفة"
+        ],
+        correct: 1
+      },
+      {
+        question: "ما هو شرط وجود النهاية عند نقطة ما؟",
+        options: [
+          "النهاية من اليسار تساوي النهاية من اليمين",
+          "الدالة معرفة عند تلك النقطة",
+          "الدالة مستمرة عند تلك النقطة",
+          "الدالة قابلة للاشتقاق عند تلك النقطة"
+        ],
+        correct: 0
+      },
+      {
+        question: "ما هي نهاية الدالة f(x) = (x^2 - 1)/(x - 1) عندما x تقترب من 1؟",
+        options: [
+          "صفر",
+          "واحد",
+          "اثنان",
+          "غير معرفة"
+        ],
+        correct: 2
+      },
+      {
+        question: "ما هو تعريف الدالة الزوجية؟",
+        options: [
+          "f(-x) = f(x) لكل x في مجال الدالة",
+          "f(-x) = -f(x) لكل x في مجال الدالة",
+          "f(x+1) = f(x) لكل x في مجال الدالة",
+          "f(2x) = 2f(x) لكل x في مجال الدالة"
+        ],
+        correct: 0
+      }
+    ];
+
+    let currentQuestion = 0;
+    const quizContainer = document.getElementById('quiz-container');
+
+    function renderQuestion() {
+      const question = quizData[currentQuestion];
+      let questionHTML = `
+        <div class="progress-bar">
+          <div class="progress" style="width: ${((currentQuestion + 1) / quizData.length) * 100}%"></div>
+        </div>
+        <div class="question">
+          <h2>السؤال ${currentQuestion + 1} من ${quizData.length}:</h2>
+          <p>${question.question}</p>
+          <div class="options">
+      `;
+
+      question.options.forEach((option, index) => {
+        questionHTML += `
+          <div class="option">
+            <input type="radio" id="option${index}" name="answer" value="${index}">
+            <label for="option${index}">${option}</label>
+          </div>
+        `;
+      });
+
+      questionHTML += `
+          </div>
+          <button onclick="checkAnswer()">تأكيد الإجابة</button>
+          <div class="feedback hidden"></div>
+        </div>
+      `;
+
+      if (currentQuestion > 0) {
+        questionHTML += `<button onclick="previousQuestion()">السؤال السابق</button>`;
+      }
+
+      if (currentQuestion < quizData.length - 1) {
+        questionHTML += `<button onclick="nextQuestion()">السؤال التالي</button>`;
+      } else {
+        questionHTML += `<button onclick="showResults()">إنهاء الاختبار</button>`;
+      }
+
+      quizContainer.innerHTML = questionHTML;
+    }
+
+    function checkAnswer() {
+      const selectedOption = document.querySelector('input[name="answer"]:checked');
+      if (!selectedOption) return;
+
+      const answer = parseInt(selectedOption.value);
+      const question = quizData[currentQuestion];
+      const feedbackElement = document.querySelector('.feedback');
+
+      feedbackElement.classList.remove('hidden');
+
+      if (answer === question.correct) {
+        feedbackElement.textContent = 'إجابة صحيحة!';
+        feedbackElement.className = 'feedback correct';
+      } else {
+        feedbackElement.textContent = `إجابة خاطئة. الإجابة الصحيحة هي: ${question.options[question.correct]}`;
+        feedbackElement.className = 'feedback incorrect';
+      }
+    }
+
+    function nextQuestion() {
+      if (currentQuestion < quizData.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+      }
+    }
+
+    function previousQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+      }
+    }
+
+    function showResults() {
+      let correctAnswers = 0;
+      quizData.forEach((question, index) => {
+        const selectedOption = document.querySelector(`input[name="answer${index}"]:checked`);
+        if (selectedOption && parseInt(selectedOption.value) === question.correct) {
+          correctAnswers++;
+        }
+      });
+
+      const percentage = (correctAnswers / quizData.length) * 100;
+      quizContainer.innerHTML = `
+        <h2>نتائج الاختبار</h2>
+        <p>لقد أجبت على ${correctAnswers} من أصل ${quizData.length} أسئلة بشكل صحيح.</p>
+        <p>نسبة الإجابات الصحيحة: ${percentage.toFixed(2)}%</p>
+        <button onclick="location.reload()">إعادة الاختبار</button>
+      `;
+    }
+
+    renderQuestion();
+  </script>
+</body></html>
